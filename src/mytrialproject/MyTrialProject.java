@@ -1,4 +1,5 @@
- import java.io.BufferedReader;
+package mytrialproject;
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.DataOutputStream;
@@ -34,9 +35,9 @@ import org.bouncycastle.openpgp.PGPSecretKey;
 import org.bouncycastle.openpgp.PGPSecretKeyRingCollection;
 import org.bouncycastle.openpgp.PGPUtil;
 //
-public class SingleSignOnTest {
-      private static File publicKeyFile = new File("/Development/Java/Single Sign On with Encryption(PGP)/PGP1D0.pkr");
-      private static File privateKeyFile = new File("/Development/Java/Single Sign On with Encryption(PGP)/PGP1D0.skr");
+public class MyTrialProject {
+      private static File publicKeyFile = new File("PGP1D0.pkr");
+      private static File privateKeyFile = new File("PGP1D0.skr");
       private static String privateKeyPassword = "passphrase";
  
        //
@@ -74,10 +75,10 @@ public class SingleSignOnTest {
                       System.out.println("Reading the temp file to make sure that the bits were written\n--------------");
                       BufferedReader isr = new BufferedReader(new FileReader(tempfile));
                       String line = "";
-                      while ( (line = isr.readLine())&nbsp;!= null )
+                      while ( (line = isr.readLine())!= null )
                       {
                               System.out.println(line + "\n");
-                      }
+                      };
                       // find out a little about the keys in the public key ring
                       System.out.println("Key Strength = " + key.getBitStrength());
                       System.out.println("Algorithm = " + key.getAlgorithm());
@@ -190,7 +191,7 @@ public class SingleSignOnTest {
                       Iterator it = enc.getEncryptedDataObjects();
                       PGPPrivateKey sKey = null;
                       PGPPublicKeyEncryptedData pbe = null;
-                      while (sKey == null &amp;&amp; it.hasNext()) {
+                      while (sKey == null && it.hasNext()) {
                               pbe = (PGPPublicKeyEncryptedData) it.next();
                               System.out.println("pbe id=" + pbe.getKeyID());
                               sKey = findSecretKey(keyIn, pbe.getKeyID(), passwd);
@@ -211,7 +212,7 @@ public class SingleSignOnTest {
                               PGPLiteralData ld = (PGPLiteralData) message;
                               InputStream unc = ld.getInputStream();
                               int ch;
-                              while ((ch = unc.read()) &gt;= 0) {
+                              while ((ch = unc.read()) >= 0) {
                                       baos.write(ch);
                               }
                       } else if (message instanceof PGPOnePassSignatureList) {
@@ -231,7 +232,7 @@ public class SingleSignOnTest {
                       return baos.toString();
               } catch (PGPException e) {
                       System.err.println(e);
-                      if (e.getUnderlyingException()&nbsp;!= null) {
+                      if (e.getUnderlyingException()!= null) {
                               e.getUnderlyingException().printStackTrace();
                       }
               }
@@ -258,7 +259,7 @@ public class SingleSignOnTest {
               byte[] buf = new byte[4096];
               int numRead = 0;
               ByteArrayOutputStream baos = new ByteArrayOutputStream();
-              while ((numRead = fis.read(buf)) &gt; 0) {
+              while ((numRead = fis.read(buf)) > 0) {
                       baos.write(buf, 0, numRead);
               }
               fis.close();
